@@ -465,13 +465,16 @@
          * @param {integer} width the width of the node 
          * @param {integer} height the height of the node
          * @param {integer} zIndex the z-index of the node
-         * @param {Object} json some json data
+         * @param {Object} json some json date
+         * @param {string} id the id of the node
          * @returns returns the id of the created node as string
          */
-        createNode: function (type, left, top, width, height, zIndex, json) {
+        createNode: function (type, left, top, width, height, zIndex, json, id) {
             var metamodel = ySyncMetaInstance.share.data.get('metamodel');
-
-            var id = generateRandomId();
+            
+            if(!id)
+                id = generateRandomId();
+            
             var _ymap = ySyncMetaInstance.share.nodes.set(id, Y.Map);
             if (metamodel) {
                 createYTextsForEntityType(metamodel, id, "nodes", type, _ymap);
