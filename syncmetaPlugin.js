@@ -571,6 +571,12 @@
          */
         deleteEdge: function (entityId) {
             ySyncMetaInstance.share.edges.delete(entityId);
+        },
+        /**
+         * Applies the drage layout 
+         */
+        applyLayout : function(){
+            ySyncMetaInstance.share.canvas.set('applyLayout', true);
         }
 
         /**
