@@ -212,10 +212,10 @@
                 }
             });
             var url = localStorage.userinfo_endpoint + '?access_token=' + localStorage.access_token;
-            httpGetAsync(url, function(data){
+            httpGetAsync(url, function (data) {
                 var user = JSON.parse(data);
                 jabberId = JSON.parse(data).sub;
-                if(callback) callback(user);
+                if (callback) callback(user);
             });
         },
         /**
@@ -332,7 +332,7 @@
                 return new Error('No Connection to Yjs space');
             ySyncMetaInstance.share.edges.observe(function (event) {
                 if (event.type === 'delete')
-                    callback(event.name);
+                    callback({ id: event.name, source: event.oldValue.get('source'), target: event.oldValue.get('target') });
             });
         },
         /**
@@ -471,10 +471,10 @@
          */
         createNode: function (type, left, top, width, height, zIndex, json, id) {
             var metamodel = ySyncMetaInstance.share.data.get('metamodel');
-            
-            if(!id)
+
+            if (!id)
                 id = generateRandomId();
-            
+
             var _ymap = ySyncMetaInstance.share.nodes.set(id, Y.Map);
             if (metamodel) {
                 createYTextsForEntityType(metamodel, id, "nodes", type, _ymap);
@@ -578,7 +578,7 @@
         /**
          * Applies the drage layout 
          */
-        applyLayout : function(){
+        applyLayout: function () {
             ySyncMetaInstance.share.canvas.set('applyLayout', true);
         }
 
