@@ -332,7 +332,7 @@
                 return new Error('No Connection to Yjs space');
             ySyncMetaInstance.share.edges.observe(function (event) {
                 if (event.type === 'delete')
-                    callback({ id: event.name, source: event.oldValue.get('source'), target: event.oldValue.get('target') });
+                    callback({ id: event.name, source: event.oldValue.get('source'), target: event.oldValue.get('target'), type : event.oldValue.get('type') });
             });
         },
         /**
