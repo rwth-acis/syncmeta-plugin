@@ -99,7 +99,7 @@
         attrObservers[type].attributePrimitiveObserver = function (entityId) {
             return function (event) {
                 if (event.name.search(/\w*\[(\w|\s)*\]/g) != -1) {
-                    callback(event.value.value, entityId, event.value.entityId);
+                    callback(event.value.value, entityId, event.value.entityId, event.value.userId);
                 }
             }
         }
@@ -203,7 +203,7 @@
                     attrObserverInit('nodes', ymap, nodeId);
                 }
             });
-
+            
             ySyncMetaInstance.share.edges.observe(function (event) {
                 var edgeId = event.name;
                 if (event.type === 'add') {
