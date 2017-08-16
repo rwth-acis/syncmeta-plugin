@@ -1,3 +1,6 @@
+/**
+ * @module Syncmeta-Plugin
+ */
 (function (root, factory) {
     // Support CommonJS
     if (typeof exports === 'object') {

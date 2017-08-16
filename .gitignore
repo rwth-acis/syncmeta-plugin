@@ -1,2 +1,4 @@
 components
 .vscode
+node_modules
+doc

@@ -4,7 +4,7 @@
   "description": "A small plugin to listen to events and create node or edges and edit their attributes. \r For a example how to use the demo have a look at the demo widget in the demo folder.\r The plugin doesn't have any dependencies.",
   "main": "syncmetaPlugin.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "doc": "./node_modules/.bin/jsdoc syncmetaPlugin.js --debug -t ./node_modules/jsdoc-baseline --verbose --readme README.md -c jsdoc.conf.json -d doc"    
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/Mari0/syncmeta-plugin/issues"
   },
-  "homepage": "https://github.com/Mari0/syncmeta-plugin#readme"
+  "homepage": "https://github.com/Mari0/syncmeta-plugin#readme",
+  "devDependencies": {
+    "jsdoc": "^3.5.4",
+    "jsdoc-baseline": "https://github.com/hegemonic/baseline/tarball/master"
+  }
 }
