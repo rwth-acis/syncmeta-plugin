@@ -1,0 +1,720 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="generator" content="JSDoc 3.5.4">
+  <meta charset="utf-8">
+  <title>Source: syncmetaPlugin.js</title>
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Karla:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Noto+Serif:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Inconsolata:500" type="text/css">
+  <link href="css/baseline.css" rel="stylesheet">
+</head>
+
+<body onload="prettyPrint()">
+  <nav id="jsdoc-navbar" role="navigation" class="jsdoc-navbar">
+    <div id="jsdoc-navbar-container">
+      <div id="jsdoc-navbar-content">
+        <a href="index.html" class="jsdoc-navbar-package-name">Home</a>
+      </div>
+    </div>
+  </nav>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: syncmetaPlugin.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>/**
+ * @module Syncmeta-Plugin
+ */
+(function (root, factory) {
+    // Support CommonJS
+    if (typeof exports &#x3D;&#x3D;&#x3D; &#x27;object&#x27;) {
+        var plugin &#x3D; factory();
+
+        // Support NodeJS &amp;amp; Component, which allow module.exports to be a function
+        if (typeof module &#x3D;&#x3D;&#x3D; &#x27;object&#x27; &amp;amp;&amp;amp; module &amp;amp;&amp;amp; module.exports) {
+            exports &#x3D; module.exports &#x3D; plugin;
+        }
+
+        // Support CommonJS 1.1.1 spec
+        exports.syncmeta &#x3D; plugin;
+
+        // Support AMD
+    } else if (typeof define &#x3D;&#x3D;&#x3D; &#x27;function&#x27; &amp;amp;&amp;amp; define.amd) {
+        define([], factory);
+
+        // Support vanilla script loading
+    } else {
+        root.syncmeta &#x3D; factory();
+    }
+}(this, function () {
+    &#x27;use strict&#x27;;
+    var generateRandomId &#x3D; function (length) {
+        var chars &#x3D; &quot;1234567890abcdef&quot;;
+        var numOfChars &#x3D; chars.length;
+        var i, rand;
+        var res &#x3D; &quot;&quot;;
+
+        if (typeof length &#x3D;&#x3D;&#x3D; &#x27;undefined&#x27;) length &#x3D; 24;
+
+        for (i &#x3D; 0; i &amp;lt; length; i++) {
+            rand &#x3D; Math.floor(Math.random() * numOfChars);
+            res +&#x3D; chars[rand];
+        }
+        return res;
+    };
+
+    function httpGetAsync(theUrl, callback) {
+        var xmlHttp &#x3D; new XMLHttpRequest();
+        xmlHttp.onreadystatechange &#x3D; function () {
+            if (xmlHttp.readyState &#x3D;&#x3D; 4 &amp;amp;&amp;amp; xmlHttp.status &#x3D;&#x3D; 200)
+                callback(xmlHttp.responseText);
+        }
+        xmlHttp.open(&quot;GET&quot;, theUrl, true); // true for asynchronous 
+        xmlHttp.send(null);
+    }
+    /**
+     * Listen to node manipulations. Private helper function
+     * @private
+     * @param {array} keys - the operations to listen to. All possible options are  [&#x27;NodeMoveOperation&#x27;, &#x27;NodeResizeOperation&#x27;, &#x27;NodeMoveZOperation&#x27;]
+     * @param {function} callback - the callback if one of the operations defined in keys were issued
+     */
+    var onNode &#x3D; function (key, callback) {
+        var newObersever &#x3D; function (event) {
+            if (key.indexOf(event.name) !&#x3D; -1) {
+                callback(event.value);
+            }
+        };
+
+        var nodeIds &#x3D; ySyncMetaInstance.share.nodes.keys();
+        for (var i &#x3D; 0; i &amp;lt; nodeIds.length; i++) {
+            var ymap &#x3D; ySyncMetaInstance.share.nodes.get(nodeIds[i]);
+            ymap.observe(newObersever);
+        }
+        nodeObservers[key].push(newObersever);
+    };
+    var nodeObservers &#x3D; {
+        NodeMoveOperation: [],
+        NodeResizeOperation: [],
+        NodeMoveZOperation: []
+    };
+    var attrObservers &#x3D; {
+        nodes: {
+            attributeYTextObserver: undefined,
+            attributePrimitiveObserver: undefined
+        },
+        edges: {
+            attributeYTextObserver: undefined,
+            attributePrimitiveObserver: undefined
+        }
+    }
+    var ySyncMetaInstance &#x3D; null;
+
+    var jabberId &#x3D; null;
+
+    /**
+     * Listen to changes on Attributes on nodes or edges
+     * @param {string} type - &#x27;nodes&#x27; or &#x27;edges&#x27;
+     * @param {onAttributeChangeCallback} callback - calls back if a attribute is changed
+     * @param {string} entityId - id of the node to listen to. If null we listen to all of the specified type
+     * @private
+     */
+    var onAttributeChange &#x3D; function (type, callback) {
+        if (!ySyncMetaInstance)
+            return new Error(&#x27;No Connection to Yjs space&#x27;);
+
+
+        attrObservers[type].attributePrimitiveObserver &#x3D; function (entityId) {
+            return function (event) {
+                if (event.name.search(/\w*\[(\w|\s)*\]/g) !&#x3D; -1) {
+                    callback(event.value.value, entityId, event.value.entityId, event.value.userId);
+                }
+            }
+        }
+        attrObservers[type].attributeYTextObserver &#x3D; function (entityId, attrId) {
+            return function (event) {
+                callback(event.object.toString(), entityId, attrId);
+            }
+        };
+
+        var listenToAttributes &#x3D; function (ymap, entityId) {
+            var listentoAttributesHelper &#x3D; function (attrId, ytext, entityId) {
+                var newObserver &#x3D; attrObservers[type].attributeYTextObserver(entityId, attrId);
+                ytext.observe(newObserver);
+            };
+
+            var newObserver &#x3D; attrObservers[type].attributePrimitiveObserver(entityId);
+            ymap.observe(newObserver);
+
+            var keys &#x3D; ymap.keys();
+            for (var i &#x3D; 0; i &amp;lt; keys.length; i++) {
+                if (keys[i].search(/\w*\[(\w|\s)*\]/g) !&#x3D; -1) {
+                    var ytext &#x3D; ymap.get(keys[i]);
+                    //is it relly a y-text object?
+                    if (ytext instanceof Y.Text.typeDefinition.class)
+                        listentoAttributesHelper(keys[i], ytext, entityId);
+                }
+            }
+        };
+
+        //listen to everything OR return
+        var nodeIds &#x3D; ySyncMetaInstance.share[type].keys();
+        for (var i &#x3D; 0; i &amp;lt; nodeIds.length; i++) {
+            var p &#x3D; ySyncMetaInstance.share[type].get(nodeIds[i]);
+            if (p) {
+                listenToAttributes(p, nodeIds[i]);
+            }
+        }
+    };
+
+    /**
+     * creates all ytexts for a node/edge created via the API
+     * @param {object} metamodel the vls
+     * @param {string} entityId the id of the node/edge
+     * @param {string} entityType where is the concrete type to find which u want to create in nodes or edges
+     * @param {string} type the concrete node/edge type to create
+     * @param {Y.Map} ymap the ymap of the node/edge
+     */
+    var createYTextsForEntityType &#x3D; function (metamodel, entityId, entityType, type, ymap) {
+        var types &#x3D; metamodel[entityType];
+        for (var key in types) {
+            if (types.hasOwnProperty(key) &amp;amp;&amp;amp; types[key].label &#x3D;&#x3D;&#x3D; type) {
+                var attrs &#x3D; types[key].attributes;
+                for (var attrKey in attrs) {
+                    if (attrs.hasOwnProperty(attrKey) &amp;amp;&amp;amp; attrs[attrKey].value &#x3D;&#x3D;&#x3D; &#x27;string&#x27;) {
+                        ymap.set(entityId + &#x27;[&#x27; + attrs[attrKey].key + &#x27;]&#x27;, Y.Text);
+                    }
+                }
+            }
+        }
+    }
+
+
+    return {
+        /**
+         * If are already connected to a syncmeta yjs space then use this funnction to init the plugin
+         * Otherwise connect to yjs with the connect function
+         * @param {object} yInstance - the y instance 
+         * @param {String} [userId] the id of the user. Otherwise a HTTP GET-request will be issued to get the data
+         * @param {Function} [callback]
+         * @return {undefined}
+         */
+        init: function (yInstance, userId, callback) {
+            ySyncMetaInstance &#x3D; yInstance;
+
+            var attrObserverInit &#x3D; function (type, ymap, id) {
+                if (attrObservers[type].attributePrimitiveObserver &amp;amp;&amp;amp; attrObservers[type].attributeYTextObserver) {
+                    ymap.observe(function (e) {
+                        if (e.type &#x3D;&#x3D;&#x3D; &#x27;add&#x27; &amp;amp;&amp;amp; e.name.search(/\w*\[(\w|\s)*\]/g) !&#x3D; -1) {
+                            var attrId &#x3D; e.name;
+                            if (e.value instanceof Y.Text.typeDefinition.class) {
+                                var ytext &#x3D; e.value;
+                                var newObserver &#x3D; attrObservers[type].attributeYTextObserver(id, attrId);
+                                ytext.observe(newObserver);
+                            } else {
+                                var newObersever &#x3D; attrObservers[type].attributePrimitiveObserver(id);
+                                e.object.observe(newObersever);
+                            }
+                        }
+                    });
+                }
+            }
+
+            ySyncMetaInstance.share.nodes.observe(function (event) {
+                var nodeId &#x3D; event.name;
+                if (event.type &#x3D;&#x3D;&#x3D; &#x27;add&#x27;) {
+                    var ymap &#x3D; event.value;
+                    for (var key in nodeObservers) {
+                        if (nodeObservers.hasOwnProperty(key)) {
+                            for (var i &#x3D; 0; i &amp;lt; nodeObservers[key].length; i++) {
+                                ymap.observe(nodeObservers[key][i]);
+                            }
+                        }
+                    }
+                    attrObserverInit(&#x27;nodes&#x27;, ymap, nodeId);
+                }
+            });
+
+            ySyncMetaInstance.share.edges.observe(function (event) {
+                var edgeId &#x3D; event.name;
+                if (event.type &#x3D;&#x3D;&#x3D; &#x27;add&#x27;) {
+                    var ymap &#x3D; event.value;
+                    attrObserverInit(&#x27;edges&#x27;, ymap, edgeId);
+                }
+            });
+            if (userId)
+                jabberId &#x3D; userId;
+            else {
+                var url &#x3D; localStorage.userinfo_endpoint + &#x27;?access_token&#x3D;&#x27; + localStorage.access_token;
+                httpGetAsync(url, function (data) {
+                    var user &#x3D; JSON.parse(data);
+                    jabberId &#x3D; JSON.parse(data).sub;
+                    if (callback) callback(user);
+                });
+            }
+
+        },
+        /**
+         * Listen to NodeAddOperations on the SyncMeta canvas widget
+         * @param {onNodeAddCallback} callback - the callback if a node was created on syncmeta canvas widget
+         */
+        onNodeAdd: function (callback) {
+            if (!ySyncMetaInstance)
+                return new Error(&#x27;No Connection to Yjs space&#x27;);
+
+            ySyncMetaInstance.share.canvas.observe(function (event) {
+                if (event.name &#x3D;&#x3D; &#x27;NodeAddOperation&#x27;)
+                    callback(event.value);
+            });
+        },
+        /**
+         * @param{function} callback - callback if a users joins the space
+         */
+        onUserJoin: function (callback) {
+            if (!ySyncMetaInstance)
+                return new Error(&#x27;No Connection to Yjs space&#x27;);
+            ySyncMetaInstance.share.userList.observe(function (event) {
+                callback(event.value);
+            })
+        },
+        /**
+         * Listen to EdgeAddOperation on the SyncMeta canvas widget
+         * @param {onEdgeAddCallback} callback - the callback if a edge was created on syncmeta canvas widget
+         */
+        onEdgeAdd: function (callback) {
+            if (!ySyncMetaInstance)
+                return new Error(&#x27;No Connection to Yjs space&#x27;);
+
+            ySyncMetaInstance.share.canvas.observe(function (event) {
+                if (event.name &#x3D;&#x3D; &#x27;EdgeAddOperation&#x27;)
+                    callback(event.value);
+            });
+        },
+        /**
+         * Listen to both EdgeAddOperation and NodeAddOperation
+         * @param callback - the callback if edge or node was created on syncmeta canvas widget
+         * @see onNodeAdd
+         * @see onEdgeAdd
+         */
+        onEntityAdd: function (callback) {
+            if (!ySyncMetaInstance)
+                return new Error(&#x27;No Connection to Yjs space&#x27;);
+
+            ySyncMetaInstance.share.canvas.observe(function (event) {
+                if (event.name &#x3D;&#x3D; &#x27;NodeAddOperation&#x27;)
+                    callback(event.value);
+                else if (event.name &#x3D;&#x3D; &#x27;EdgeAddOperation&#x27;)
+                    callback(event.value, event.name);
+            });
+
+        },
+        /**
+         * Listen to selections of entities on the Syncmeta canvas widget
+         * @param {onEntitySelectCallback} callback - the callback if a entity was selected
+         */
+        onEntitySelect: function (callback) {
+            if (!ySyncMetaInstance)
+                return new Error(&#x27;No Connection to Yjs space&#x27;);
+
+            ySyncMetaInstance.share.select.observe(function (event) {
+                if (event.value)
+                    callback(event.value);
+            });
+        },
+        /**
+         * Listen to selections of nodes on the Syncmeta canvas widget
+         * @param {onEntitySelectCallback} callback - the callback if a node was selected
+         */
+        onNodeSelect: function (callback) {
+
+            if (!ySyncMetaInstance)
+                return new Error(&#x27;No Connection to Yjs space&#x27;);
+            ySyncMetaInstance.share.select.observe(function (event) {
+                if (event.value &amp;amp;&amp;amp; ySyncMetaInstance.share.nodes.keys().indexOf(event.value) !&#x3D; -1)
+                    callback(event.value);
+            });
+        },
+        /**
+         * Listen to selections of edges on the Syncmeta canvas widget
+         * @param {onEntitySelectCallback} callback - the callback if a edge was selected
+         */
+        onEdgeSelect: function (callback) {
+            if (!ySyncMetaInstance)
+                return new Error(&#x27;No Connection to Yjs space&#x27;);
+            ySyncMetaInstance.share.select.observe(function (event) {
+                if (event.value &amp;amp;&amp;amp; ySyncMetaInstance.share.edges.keys().indexOf(event.value) !&#x3D; -1)
+                    callback(event.value);
+            });
+        },
+        /**
+         * Listen to NodeDeleteOperation
+         * @param {onEntityDeleteCallback} callback - the callback if a node was deleted
+         */
+        onNodeDelete: function (callback) {
+            if (!ySyncMetaInstance)
+                return new Error(&#x27;No Connection to Yjs space&#x27;);
+            ySyncMetaInstance.share.nodes.observe(function (event) {
+                if (event.type &#x3D;&#x3D;&#x3D; &#x27;delete&#x27;)
+                    callback(event.name);
+            });
+
+        },
+        /**
+         * Listen to EdgeDeleteOperations
+         * @param {onEntityDeleteCallback} callback - the callback if a edge was deleted
+         */
+        onEdgeDelete: function (callback) {
+            if (!ySyncMetaInstance)
+                return new Error(&#x27;No Connection to Yjs space&#x27;);
+            ySyncMetaInstance.share.edges.observe(function (event) {
+                if (event.type &#x3D;&#x3D;&#x3D; &#x27;delete&#x27;)
+                    callback({ id: event.name, source: event.oldValue.get(&#x27;source&#x27;), target: event.oldValue.get(&#x27;target&#x27;), type: event.oldValue.get(&#x27;type&#x27;) });
+            });
+        },
+        /**
+         * Listen to NodeMoveOperations
+         * Equivalent to onNode([&#x27;NodeMoveOperation&#x27;], callback, id);
+         * @param {onNodeMoveCallback} callback - the callback if a node is moved on the canvas
+         * @param {string} id - id of the node to listen to. If null we listen to all
+         * @see onNode
+         */
+        onNodeMove: function (callback) {
+            if (!ySyncMetaInstance)
+                return new Error(&#x27;No Connection to Yjs space&#x27;);
+            onNode(&#x27;NodeMoveOperation&#x27;, callback);
+        },
+        /**
+         * Listen to NodeResizeOperations
+         * Equivalent to onNode([&#x27;NodeResizeOperation&#x27;], callback, id);
+         * @param {onNodeResizeCallback} callback - the callback if a node is resized on the canvas
+         * @param {string} id - id of the node to listen to. If null we listen to all
+         * @see OnNode
+         */
+        onNodeResize: function (callback) {
+            if (!ySyncMetaInstance)
+                return new Error(&#x27;No Connection to Yjs space&#x27;);
+            onNode(&#x27;NodeResizeOperation&#x27;, callback);
+        },
+        /**
+         * Listen to NodeMoveZOperations
+         * Equivalent to onNode([&#x27;NodeMoveZOperation&#x27;], callback, id);
+         * @param {onNodeMoveZCallback} callback - the callback if a node is moved to the back- or foreground on the canvas
+         * @param {string} id - id of the node to listen to. If null we listen to all
+         * @see OnNode
+         */
+        onNodeMoveZ: function (callback) {
+            if (!ySyncMetaInstance)
+                return new Error(&#x27;No Connection to Yjs space&#x27;);
+            onNode(&#x27;NodeMoveZOperation&#x27;, callback);
+        },
+        /**
+         * Listen to changes on Attributes on nodes
+         * Equivalent to onAttributeChange(&#x27;nodes&#x27;, callback, entityId);
+         * @param {onAttributeChangeCallback} callback - calls back if a attribute is changed
+         * @param {string} entityId - id of the node to listen to. If null we listen to all of the specified type
+         * @see OnAttributeChange
+         */
+        onNodeAttributeChange: function (callback) {
+            onAttributeChange(&#x27;nodes&#x27;, callback);
+        },
+        /**
+         * Listen to changes on Attributes on edges
+         * Equivalent to onAttributeChange(&#x27;edges&#x27;, callback, entityId);
+         * @param {onAttributeChangeCallback} callback - calls back if a attribute is changed
+         * @param {string} entityId - id of the edge to listen to. If null we listen to all of the specified type
+         * @see OnAttributeChange
+         */
+        onEdgeAttributeChange: function (callback) {
+            onAttributeChange(&#x27;edges&#x27;, callback);
+        },
+        /**
+         * Set a value for a attribute of a entity
+         * @param {stirng} entity
+         * @param {string} attrName
+         * @param {string|bool|integer} value
+         */
+        setAttributeValue: function (entityId, attrName, value) {
+            var idx &#x3D; ySyncMetaInstance.share.nodes.keys().indexOf(entityId);
+
+            var attrId;
+            //Does attrName has the form of the id
+            if (attrName.search(/\w*\[(\w|\s)*\]/g) !&#x3D; -1)
+                //Yes, the attribute name is the attribute id
+                attrId &#x3D; attrName;
+            else
+                //No, build the attribute id
+                attrId &#x3D; entityId + &#x27;[&#x27; + attrName.toLowerCase() + &#x27;]&#x27;;
+
+            var findAttr &#x3D; function (ymap, attrId, value) {
+                var keys &#x3D; ymap.keys().indexOf(attrId);
+                if (keys !&#x3D; -1) {
+                    var attr &#x3D; ymap.get(attrId);
+
+                    if (attr instanceof Y.Text.typeDefinition.class) {
+                        var ytext &#x3D; attr;
+
+                        var l &#x3D; ytext.toString().length;
+                        if (l &gt; 0) {
+                            ytext.delete(0, l);
+                        }
+                        ytext.insert(0, value);
+                        //lets wait a bit before trigger the save
+                        // so that the canvas and attribute widget can process the value change at their callbacks
+                        setTimeout(function () {
+                            if (jabberId)
+                                ySyncMetaInstance.share.canvas.set(&#x27;triggerSave&#x27;, jabberId);
+                        }, 500);
+                    } else
+                        ymap.set(attrId, {
+                            &#x27;entityId&#x27;: attrId,
+                            &#x27;value&#x27;: value,
+                            &#x27;type&#x27;: &#x27;update&#x27;,
+                            &#x27;position&#x27;: 0
+                        });
+                } else
+                    ymap.set(attrId, {
+                        &#x27;entityId&#x27;: attrId,
+                        &#x27;value&#x27;: value,
+                        &#x27;type&#x27;: &#x27;update&#x27;,
+                        &#x27;position&#x27;: 0
+                    });
+            }
+
+            if (idx !&#x3D; -1) {
+                var ymap &#x3D; ySyncMetaInstance.share.nodes.get(entityId);
+                findAttr(ymap, attrId, value);
+            } else {
+                idx &#x3D; ySyncMetaInstance.share.edges.keys().indexOf(entityId);
+                if (idx !&#x3D; -1) {
+                    var ymap &#x3D; ySyncMetaInstance.share.edges.get(entityId);
+                    findAttr(ymap, attrId, value);
+                } else {
+                    return;
+                }
+            }
+        },
+        /**
+         * Create a node 
+         * @param {String} type the type of the node
+         * @param {integer} left the x-coordinate
+         * @param {integer} top the y-coordinate
+         * @param {integer} width the width of the node 
+         * @param {integer} height the height of the node
+         * @param {integer} zIndex the z-index of the node
+         * @param {Object} json some json date
+         * @param {string} id the id of the node
+         * @returns returns the id of the created node as string
+         */
+        createNode: function (type, left, top, width, height, zIndex, json, id) {
+            var metamodel &#x3D; ySyncMetaInstance.share.data.get(&#x27;metamodel&#x27;);
+
+            if (!id)
+                id &#x3D; generateRandomId();
+
+            var _ymap &#x3D; ySyncMetaInstance.share.nodes.set(id, Y.Map);
+            if (metamodel) {
+                createYTextsForEntityType(metamodel, id, &quot;nodes&quot;, type, _ymap);
+            } else {
+                _ymap.set(id + &#x27;[label]&#x27;, Y.Text);
+                if (type &#x3D;&#x3D;&#x3D; &#x27;Node Shape&#x27;) {
+                    _ymap.set(id + &#x27;[color]&#x27;, Y.Text);
+                    _ymap.set(id + &#x27;[customAnchors]&#x27;, Y.Text);
+                    _ymap.set(id + &#x27;[customShape]&#x27;, Y.Text);
+                } else if (type &#x3D;&#x3D;&#x3D; &#x27;Edge Shape&#x27;) {
+                    _ymap.set(id + &#x27;[color]&#x27;, Y.Text);
+                    _ymap.set(id + &#x27;[overlay]&#x27;, Y.Text);
+                }
+            }
+            _ymap.set(&#x27;left&#x27;, left);
+            _ymap.set(&#x27;top&#x27;, top);
+            _ymap.set(&#x27;width&#x27;, width);
+            _ymap.set(&#x27;height&#x27;, height);
+            _ymap.set(&#x27;zIndex&#x27;, zIndex);
+            _ymap.set(&#x27;type&#x27;, type);
+            _ymap.set(&#x27;id&#x27;, id);
+            if (json) _ymap.set(&#x27;json&#x27;, json);
+            _ymap.set(&#x27;jabberId&#x27;, jabberId);
+
+            ySyncMetaInstance.share.canvas.set(&#x27;NodeAddOperation&#x27;, {
+                id: id,
+                type: type,
+                left: left,
+                top: top,
+                width: width,
+                height: height,
+                zIndex: zIndex,
+                json: json,
+                viewId: undefined,
+                oType: undefined,
+                jabberId: jabberId
+            });
+            setTimeout(function () {
+                if (jabberId)
+                    ySyncMetaInstance.share.canvas.set(&#x27;triggerSave&#x27;, jabberId);
+            }, 500);
+            return id;
+        },
+        /**
+         * delete a node
+         * @param {string} id of the node to delete
+         */
+        deleteNode: function (entityId) {
+            ySyncMetaInstance.share.nodes.delete(entityId);
+        },
+        /**
+         * create a edge
+         * @param {string} type type of the edge
+         * @param {source} source the id of the source node
+         * @param {target} target the id of the target node
+         * @param {Object} json some additional data
+         */
+        createEdge: function (type, source, target, json) {
+            var id &#x3D; generateRandomId();
+            setTimeout(function () {
+                var metamodel &#x3D; ySyncMetaInstance.share.data.get(&#x27;metamodel&#x27;);
+
+                var _ymap &#x3D; ySyncMetaInstance.share.edges.set(id, Y.Map);
+                if (metamodel) {
+                    createYTextsForEntityType(metamodel, id, &quot;edges&quot;, type, _ymap);
+                } else {
+                    _ymap.set(id + &#x27;[label]&#x27;, Y.Text);
+                }
+                _ymap.set(&#x27;id&#x27;, id);
+                _ymap.set(&#x27;type&#x27;, type);
+                _ymap.set(&#x27;source&#x27;, source);
+                _ymap.set(&#x27;target&#x27;, target);
+                _ymap.set(&#x27;jabberId&#x27;, jabberId);
+                //if source and target nodes are created previously just wait here for a 
+
+                ySyncMetaInstance.share.canvas.set(&#x27;EdgeAddOperation&#x27;, {
+                    id: id,
+                    type: type,
+                    source: source,
+                    target: target,
+                    json: json,
+                    viewId: undefined,
+                    oType: undefined,
+                    jabberId: jabberId
+                });
+
+                setTimeout(function () {
+                    if (jabberId)
+                        ySyncMetaInstance.share.canvas.set(&#x27;triggerSave&#x27;, jabberId);
+                }, 100);
+            }, 200);
+            return id;
+        },
+        /**
+         * Delete a edge
+         * @param {string} the id of the edge to delete
+         */
+        deleteEdge: function (entityId) {
+            ySyncMetaInstance.share.edges.delete(entityId);
+        },
+        /**
+         * Applies the drage layout 
+         */
+        applyLayout: function () {
+            ySyncMetaInstance.share.canvas.set(&#x27;applyLayout&#x27;, true);
+        }
+
+        /**
+         * @callback onNodeAddCallback
+         * @param {object} event - the NodeAddOperation event
+         * @param {string} event.id - the id of the created node
+         * @param {string} event.type - the type of the node
+         * @param {string} event.oType - the original type (only set in views, then type is the view type)
+         * @param {integer} event.top - y position in the canvas
+         * @param {integer} event.left - x position in the canvas
+         * @param {integer} event.width - width of the node
+         * @param {integer} event.height - height of the node
+         * @param {integer} event.zIndex - depth value of the node
+         * @param {object} event.json - the json representation. Only used for import of (meta-)models. Should be always null
+         * @param {string} event.jabberId - jabberId of the user who created the node
+         *
+         */
+
+        /**
+         * @callback onEdgeAddCallback
+         * @param {object} event - the EdgeAddOperation event
+         * @param {string} event.id - the id of the created edge
+         * @param {string} event.jabberId - jabberId of the user who created the edge
+         * @param {string} event.type - the type of the edge
+         * @param {string} event.oType - the original type (only set in views, then type is the view type)
+         * @param {object} event.json - the json representation. Only used for import of (meta-)models. Should be always null
+         * @param {string} event.source - the source of the edge
+         * @param {string} event.target - the target of the edge
+         */
+
+        /**
+         * @callback onEntitySelectCallback
+         * @param {string} id - the id of the selected entity (node/edge)
+         */
+
+        /**
+         * @callback onEntityDeleteCallback
+         * @param {string} id - the id of the deleted entity (node/edge)
+         */
+
+        /**
+         * @callback onNodeMoveCallback
+         * @param {object} event - the node move operation
+         * @param {string} event.id - the id of node
+         * @param {string} event.jabberId - the jabberId of the user
+         * @param {integer} event.offsetX
+         * @param {integer} event.offsetY
+         */
+
+        /**
+         *@callback onNodeResizeCallback
+         * @param {object} event - the node resize operation
+         * @param {string} event.id - the id of node
+         * @param {string} event.jabberId - the jabberId of the user
+         * @param {integer} event.offsetX
+         * @param {integer} event.offsetY
+         * */
+
+        /**
+         * @callback onNodeMoveZCallback
+         * @param {object} event - the NodeMoveZOperation
+         * @param {string} event.id - the id of the node
+         * @param {integer} event.offsetZ - the offset of the z coordinate
+         */
+
+        /**
+         * @callback onAttributeChangeCallback
+         * @param {string} value - the new value of the attribute
+         * @param {string} entityId - the id of the entity (node/edge) the attribute belongs to
+         * @param {string} attrId - the id of the attribute
+         */
+    }
+}));</code></pre>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+  <footer id="jsdoc-footer" class="jsdoc-footer">
+    <div id="jsdoc-footer-container">
+      <p>
+        Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> 3.5.4 on August 16, 2017.
+      </p>
+    </div>
+  </footer>
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/jquery.cookie.js"></script>
+  <script src="scripts/tree.jquery.js"></script>
+  <script src="scripts/prettify.js"></script>
+  <script src="scripts/jsdoc-toc.js"></script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/scrollanchor.js"></script>
+</body>
+
+</html>

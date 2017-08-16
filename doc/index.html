@@ -1,0 +1,207 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="generator" content="JSDoc 3.5.4">
+  <meta charset="utf-8">
+  <title>Home</title>
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Karla:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Noto+Serif:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Inconsolata:500" type="text/css">
+  <link href="css/baseline.css" rel="stylesheet">
+</head>
+
+<body onload="prettyPrint()">
+  <nav id="jsdoc-navbar" role="navigation" class="jsdoc-navbar">
+    <div id="jsdoc-navbar-container">
+      <div id="jsdoc-navbar-content">
+        <a href="index.html" class="jsdoc-navbar-package-name">Home</a>
+      </div>
+    </div>
+  </nav>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <article>
+            <h1>Syncmeta-Plugin</h1>
+            <p>A small plugin to listen to events and create node or edges and edit their attributes. For a example how to use the demo have a look at the demo widget in the demo folder. The plugin doesn't have any dependencies. </p>
+            <h3>Installation of the demo</h3>
+            <p>Install the dependencies of the demo and start a HTTP server. The easiest and featest way is to use <a href="https://github.com/indexzero/http-server">http-server</a>.</p>
+            <pre class="prettyprint source lang-sh"><code>$ bower install</code></pre>
+          </article>
+          <div class="symbol-index">
+            <section>
+              <div class="symbol-index-content">
+                <h2 id="Syncmeta-Plugin">Syncmeta-Plugin</h2>
+                <div class="symbol-index-section">
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                <a href="module-Syncmeta-Plugin.html" class="!symbol-index-name">Syncmeta-Plugin</a>
+            </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-Syncmeta-Plugin.html#~applyLayout" class="!symbol-index-name">Syncmeta-Plugin~<wbr>applyLayout()</a>
+            </dt>
+                      <dd>
+                        <p>Applies the drage layout.</p>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-Syncmeta-Plugin.html#~createEdge" class="!symbol-index-name">Syncmeta-Plugin~<wbr>createEdge(type, source, target, json)</a>
+            </dt>
+                      <dd>
+                        <p>create a edge.</p>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-Syncmeta-Plugin.html#~createNode" class="!symbol-index-name">Syncmeta-Plugin~<wbr>createNode(type, left, top, width, height, zIndex, json, id)</a>
+            </dt>
+                      <dd>
+                        <p>Create a node.</p>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-Syncmeta-Plugin.html#~deleteEdge" class="!symbol-index-name">Syncmeta-Plugin~<wbr>deleteEdge(the)</a>
+            </dt>
+                      <dd>
+                        <p>Delete a edge.</p>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-Syncmeta-Plugin.html#~deleteNode" class="!symbol-index-name">Syncmeta-Plugin~<wbr>deleteNode(id)</a>
+            </dt>
+                      <dd>
+                        <p>delete a node.</p>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-Syncmeta-Plugin.html#~init" class="!symbol-index-name">Syncmeta-Plugin~<wbr>init(yInstance[, userId][, callback])</a>
+            </dt>
+                      <dd>
+                        <p>If are already connected to a syncmeta yjs space then use this funnction to init the plugin Otherwise connect to yjs with the connect function.</p>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-Syncmeta-Plugin.html#~onEdgeAdd" class="!symbol-index-name">Syncmeta-Plugin~<wbr>onEdgeAdd(callback)</a>
+            </dt>
+                      <dd>
+                        <p>Listen to EdgeAddOperation on the SyncMeta canvas widget.</p>
+                      </dd>
+                    </dl>
+                  </div>
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                <a href="module-Syncmeta-Plugin.html#~onEdgeAttributeChange" class="!symbol-index-name">Syncmeta-Plugin~<wbr>onEdgeAttributeChange(callback, entityId)</a>
+            </dt>
+                      <dd>
+                        <p>Listen to changes on Attributes on edges Equivalent to onAttributeChange('edges', callback, entityId);.</p>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-Syncmeta-Plugin.html#~onEdgeDelete" class="!symbol-index-name">Syncmeta-Plugin~<wbr>onEdgeDelete(callback)</a>
+            </dt>
+                      <dd>
+                        <p>Listen to EdgeDeleteOperations.</p>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-Syncmeta-Plugin.html#~onEdgeSelect" class="!symbol-index-name">Syncmeta-Plugin~<wbr>onEdgeSelect(callback)</a>
+            </dt>
+                      <dd>
+                        <p>Listen to selections of edges on the Syncmeta canvas widget.</p>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-Syncmeta-Plugin.html#~onEntityAdd" class="!symbol-index-name">Syncmeta-Plugin~<wbr>onEntityAdd(callback)</a>
+            </dt>
+                      <dd>
+                        <p>Listen to both EdgeAddOperation and NodeAddOperation.</p>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-Syncmeta-Plugin.html#~onEntitySelect" class="!symbol-index-name">Syncmeta-Plugin~<wbr>onEntitySelect(callback)</a>
+            </dt>
+                      <dd>
+                        <p>Listen to selections of entities on the Syncmeta canvas widget.</p>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-Syncmeta-Plugin.html#~onNodeAdd" class="!symbol-index-name">Syncmeta-Plugin~<wbr>onNodeAdd(callback)</a>
+            </dt>
+                      <dd>
+                        <p>Listen to NodeAddOperations on the SyncMeta canvas widget.</p>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-Syncmeta-Plugin.html#~onNodeAttributeChange" class="!symbol-index-name">Syncmeta-Plugin~<wbr>onNodeAttributeChange(callback, entityId)</a>
+            </dt>
+                      <dd>
+                        <p>Listen to changes on Attributes on nodes Equivalent to onAttributeChange('nodes', callback, entityId);.</p>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-Syncmeta-Plugin.html#~onNodeDelete" class="!symbol-index-name">Syncmeta-Plugin~<wbr>onNodeDelete(callback)</a>
+            </dt>
+                      <dd>
+                        <p>Listen to NodeDeleteOperation.</p>
+                      </dd>
+                    </dl>
+                  </div>
+                  <div class="symbol-index-column">
+                    <dl class="symbol-index-list">
+                      <dt class="symbol-index-name">
+                <a href="module-Syncmeta-Plugin.html#~onNodeMove" class="!symbol-index-name">Syncmeta-Plugin~<wbr>onNodeMove(callback, id)</a>
+            </dt>
+                      <dd>
+                        <p>Listen to NodeMoveOperations Equivalent to onNode(['NodeMoveOperation'], callback, id);.</p>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-Syncmeta-Plugin.html#~onNodeMoveZ" class="!symbol-index-name">Syncmeta-Plugin~<wbr>onNodeMoveZ(callback, id)</a>
+            </dt>
+                      <dd>
+                        <p>Listen to NodeMoveZOperations Equivalent to onNode(['NodeMoveZOperation'], callback, id);.</p>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-Syncmeta-Plugin.html#~onNodeResize" class="!symbol-index-name">Syncmeta-Plugin~<wbr>onNodeResize(callback, id)</a>
+            </dt>
+                      <dd>
+                        <p>Listen to NodeResizeOperations Equivalent to onNode(['NodeResizeOperation'], callback, id);.</p>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-Syncmeta-Plugin.html#~onNodeSelect" class="!symbol-index-name">Syncmeta-Plugin~<wbr>onNodeSelect(callback)</a>
+            </dt>
+                      <dd>
+                        <p>Listen to selections of nodes on the Syncmeta canvas widget.</p>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-Syncmeta-Plugin.html#~onUserJoin" class="!symbol-index-name">Syncmeta-Plugin~<wbr>onUserJoin()</a>
+            </dt>
+                      <dd>
+                      </dd>
+                      <dt class="symbol-index-name">
+                <a href="module-Syncmeta-Plugin.html#~setAttributeValue" class="!symbol-index-name">Syncmeta-Plugin~<wbr>setAttributeValue(entity, attrName, value)</a>
+            </dt>
+                      <dd>
+                        <p>Set a value for a attribute of a entity.</p>
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+  <footer id="jsdoc-footer" class="jsdoc-footer">
+    <div id="jsdoc-footer-container">
+      <p>
+        Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> 3.5.4 on August 16, 2017.
+      </p>
+    </div>
+  </footer>
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/jquery.cookie.js"></script>
+  <script src="scripts/tree.jquery.js"></script>
+  <script src="scripts/prettify.js"></script>
+  <script src="scripts/jsdoc-toc.js"></script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/scrollanchor.js"></script>
+</body>
+
+</html>

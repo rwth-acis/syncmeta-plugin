@@ -1,0 +1,1122 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="generator" content="JSDoc 3.5.4">
+  <meta charset="utf-8">
+  <title>Module: Syncmeta-Plugin</title>
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Karla:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Noto+Serif:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Inconsolata:500" type="text/css">
+  <link href="css/baseline.css" rel="stylesheet">
+</head>
+
+<body onload="prettyPrint()">
+  <nav id="jsdoc-navbar" role="navigation" class="jsdoc-navbar">
+    <div id="jsdoc-navbar-container">
+      <div id="jsdoc-navbar-content">
+        <a href="index.html" class="jsdoc-navbar-package-name">Home</a>
+      </div>
+    </div>
+  </nav>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <div class="symbol-detail-labels"><span class="label label-kind">module</span></div>
+            <h1><small></small><span class="symbol-name">Syncmeta-Plugin</span></h1>
+            <p class="source-link">Source: <a href="syncmetaPlugin.js.html">syncmetaPlugin.<wbr>js</a></p>
+            <div class="symbol-description">
+            </div>
+            <dl class="dl-compact">
+            </dl>
+          </header>
+          <section id="summary">
+            <div class="summary-callout">
+              <h2 class="summary-callout-heading">Methods</h2>
+              <div class="summary-content">
+                <div class="summary-column">
+                  <dl class="dl-summary-callout">
+                    <dt><a href="module-Syncmeta-Plugin.html#~applyLayout">applyLayout()</a></dt>
+                    <dd>
+                      <p>Applies the drage layout.</p>
+                    </dd>
+                    <dt><a href="module-Syncmeta-Plugin.html#~createEdge">createEdge(type, source, target, json)</a></dt>
+                    <dd>
+                      <p>create a edge.</p>
+                    </dd>
+                    <dt><a href="module-Syncmeta-Plugin.html#~createNode">createNode(type, left, top, width, height, zIndex, json, id)</a></dt>
+                    <dd>
+                      <p>Create a node.</p>
+                    </dd>
+                    <dt><a href="module-Syncmeta-Plugin.html#~deleteEdge">deleteEdge(the)</a></dt>
+                    <dd>
+                      <p>Delete a edge.</p>
+                    </dd>
+                    <dt><a href="module-Syncmeta-Plugin.html#~deleteNode">deleteNode(id)</a></dt>
+                    <dd>
+                      <p>delete a node.</p>
+                    </dd>
+                    <dt><a href="module-Syncmeta-Plugin.html#~init">init(yInstance[, userId][, callback])</a></dt>
+                    <dd>
+                      <p>If are already connected to a syncmeta yjs space then use this funnction to init the plugin Otherwise connect to yjs with the connect function.</p>
+                    </dd>
+                    <dt><a href="module-Syncmeta-Plugin.html#~onEdgeAdd">onEdgeAdd(callback)</a></dt>
+                    <dd>
+                      <p>Listen to EdgeAddOperation on the SyncMeta canvas widget.</p>
+                    </dd>
+                  </dl>
+                </div>
+                <div class="summary-column">
+                  <dl class="dl-summary-callout">
+                    <dt><a href="module-Syncmeta-Plugin.html#~onEdgeAttributeChange">onEdgeAttributeChange(callback, entityId)</a></dt>
+                    <dd>
+                      <p>Listen to changes on Attributes on edges Equivalent to onAttributeChange('edges', callback, entityId);.</p>
+                    </dd>
+                    <dt><a href="module-Syncmeta-Plugin.html#~onEdgeDelete">onEdgeDelete(callback)</a></dt>
+                    <dd>
+                      <p>Listen to EdgeDeleteOperations.</p>
+                    </dd>
+                    <dt><a href="module-Syncmeta-Plugin.html#~onEdgeSelect">onEdgeSelect(callback)</a></dt>
+                    <dd>
+                      <p>Listen to selections of edges on the Syncmeta canvas widget.</p>
+                    </dd>
+                    <dt><a href="module-Syncmeta-Plugin.html#~onEntityAdd">onEntityAdd(callback)</a></dt>
+                    <dd>
+                      <p>Listen to both EdgeAddOperation and NodeAddOperation.</p>
+                    </dd>
+                    <dt><a href="module-Syncmeta-Plugin.html#~onEntitySelect">onEntitySelect(callback)</a></dt>
+                    <dd>
+                      <p>Listen to selections of entities on the Syncmeta canvas widget.</p>
+                    </dd>
+                    <dt><a href="module-Syncmeta-Plugin.html#~onNodeAdd">onNodeAdd(callback)</a></dt>
+                    <dd>
+                      <p>Listen to NodeAddOperations on the SyncMeta canvas widget.</p>
+                    </dd>
+                    <dt><a href="module-Syncmeta-Plugin.html#~onNodeAttributeChange">onNodeAttributeChange(callback, entityId)</a></dt>
+                    <dd>
+                      <p>Listen to changes on Attributes on nodes Equivalent to onAttributeChange('nodes', callback, entityId);.</p>
+                    </dd>
+                  </dl>
+                </div>
+                <div class="summary-column">
+                  <dl class="dl-summary-callout">
+                    <dt><a href="module-Syncmeta-Plugin.html#~onNodeDelete">onNodeDelete(callback)</a></dt>
+                    <dd>
+                      <p>Listen to NodeDeleteOperation.</p>
+                    </dd>
+                    <dt><a href="module-Syncmeta-Plugin.html#~onNodeMove">onNodeMove(callback, id)</a></dt>
+                    <dd>
+                      <p>Listen to NodeMoveOperations Equivalent to onNode(['NodeMoveOperation'], callback, id);.</p>
+                    </dd>
+                    <dt><a href="module-Syncmeta-Plugin.html#~onNodeMoveZ">onNodeMoveZ(callback, id)</a></dt>
+                    <dd>
+                      <p>Listen to NodeMoveZOperations Equivalent to onNode(['NodeMoveZOperation'], callback, id);.</p>
+                    </dd>
+                    <dt><a href="module-Syncmeta-Plugin.html#~onNodeResize">onNodeResize(callback, id)</a></dt>
+                    <dd>
+                      <p>Listen to NodeResizeOperations Equivalent to onNode(['NodeResizeOperation'], callback, id);.</p>
+                    </dd>
+                    <dt><a href="module-Syncmeta-Plugin.html#~onNodeSelect">onNodeSelect(callback)</a></dt>
+                    <dd>
+                      <p>Listen to selections of nodes on the Syncmeta canvas widget.</p>
+                    </dd>
+                    <dt><a href="module-Syncmeta-Plugin.html#~onUserJoin">onUserJoin()</a></dt>
+                    <dd>
+                    </dd>
+                    <dt><a href="module-Syncmeta-Plugin.html#~setAttributeValue">setAttributeValue(entity, attrName, value)</a></dt>
+                    <dd>
+                      <p>Set a value for a attribute of a entity.</p>
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h2>Methods</h2>
+            <section>
+              <div class="symbol-detail-labels"><span class="label label-inner">inner</span></div>
+              <h3 id="~applyLayout"><span class="symbol-name">applyLayout</span><span class="signature"><span class="signature-params">()</span></span>
+              </h3>
+              <p>Applies the drage layout</p>
+              <dl class="dl-compact">
+              </dl>
+              <div class="symbol-detail-labels"><span class="label label-inner">inner</span></div>
+              <h3 id="~createEdge"><span class="symbol-name">createEdge</span><span class="signature"><span class="signature-params">(type, source, target, json)</span></span>
+              </h3>
+              <p>create a edge</p>
+              <section>
+                <h4>Parameters</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>type</p>
+                      </td>
+                      <td>
+                        <p>string</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>type of the edge</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>source</p>
+                      </td>
+                      <td>
+                        <p>source</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the id of the source node</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>target</p>
+                      </td>
+                      <td>
+                        <p>target</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the id of the target node</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>json</p>
+                      </td>
+                      <td>
+                        <p>Object</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>some additional data</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+              </dl>
+              <div class="symbol-detail-labels"><span class="label label-inner">inner</span></div>
+              <h3 id="~createNode"><span class="symbol-name">createNode</span><span class="signature"><span class="signature-params">(type, left, top, width, height, zIndex, json, id)</span></span>
+              </h3>
+              <p>Create a node</p>
+              <section>
+                <h4>Parameters</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>type</p>
+                      </td>
+                      <td>
+                        <p>String</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the type of the node</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>left</p>
+                      </td>
+                      <td>
+                        <p>integer</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the x-coordinate</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>top</p>
+                      </td>
+                      <td>
+                        <p>integer</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the y-coordinate</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>width</p>
+                      </td>
+                      <td>
+                        <p>integer</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the width of the node</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>height</p>
+                      </td>
+                      <td>
+                        <p>integer</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the height of the node</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>zIndex</p>
+                      </td>
+                      <td>
+                        <p>integer</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the z-index of the node</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>json</p>
+                      </td>
+                      <td>
+                        <p>Object</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>some json date</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>id</p>
+                      </td>
+                      <td>
+                        <p>string</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the id of the node</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p>returns the id of the created node as string</p>
+                </dd>
+              </dl>
+              <div class="symbol-detail-labels"><span class="label label-inner">inner</span></div>
+              <h3 id="~deleteEdge"><span class="symbol-name">deleteEdge</span><span class="signature"><span class="signature-params">(the)</span></span>
+              </h3>
+              <p>Delete a edge</p>
+              <section>
+                <h4>Parameter</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>the</p>
+                      </td>
+                      <td>
+                        <p>string</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>id of the edge to delete</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+              </dl>
+              <div class="symbol-detail-labels"><span class="label label-inner">inner</span></div>
+              <h3 id="~deleteNode"><span class="symbol-name">deleteNode</span><span class="signature"><span class="signature-params">(id)</span></span>
+              </h3>
+              <p>delete a node</p>
+              <section>
+                <h4>Parameter</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>id</p>
+                      </td>
+                      <td>
+                        <p>string</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>of the node to delete</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+              </dl>
+              <div class="symbol-detail-labels"><span class="label label-inner">inner</span></div>
+              <h3 id="~init"><span class="symbol-name">init</span><span class="signature"><span class="signature-params">(yInstance[, userId][, callback])</span>&nbsp;&rarr; <span class="signature-returns"> undefined</span></span>
+              </h3>
+              <p>If are already connected to a syncmeta yjs space then use this funnction to init the plugin Otherwise connect to yjs with the connect function</p>
+              <section>
+                <h4>Parameters</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>yInstance</p>
+                      </td>
+                      <td>
+                        <p>object</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the y instance</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>userId</p>
+                      </td>
+                      <td>
+                        <p>String</p>
+                      </td>
+                      <td>
+                        <p>Yes</p>
+                      </td>
+                      <td>
+                        <p>the id of the user. Otherwise a HTTP GET-request will be issued to get the data</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>callback</p>
+                      </td>
+                      <td>
+                        <p>function()</p>
+                      </td>
+                      <td>
+                        <p>Yes</p>
+                      </td>
+                      <td>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>undefined</code>&nbsp;</p>
+                </dd>
+              </dl>
+              <div class="symbol-detail-labels"><span class="label label-inner">inner</span></div>
+              <h3 id="~onEdgeAdd"><span class="symbol-name">onEdgeAdd</span><span class="signature"><span class="signature-params">(callback)</span></span>
+              </h3>
+              <p>Listen to EdgeAddOperation on the SyncMeta canvas widget</p>
+              <section>
+                <h4>Parameter</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>callback</p>
+                      </td>
+                      <td>
+                        <p>onEdgeAddCallback</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the callback if a edge was created on syncmeta canvas widget</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+              </dl>
+              <div class="symbol-detail-labels"><span class="label label-inner">inner</span></div>
+              <h3 id="~onEdgeAttributeChange"><span class="symbol-name">onEdgeAttributeChange</span><span class="signature"><span class="signature-params">(callback, entityId)</span></span>
+              </h3>
+              <p>Listen to changes on Attributes on edges Equivalent to onAttributeChange('edges', callback, entityId);</p>
+              <section>
+                <h4>Parameters</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>callback</p>
+                      </td>
+                      <td>
+                        <p>onAttributeChangeCallback</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>calls back if a attribute is changed</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>entityId</p>
+                      </td>
+                      <td>
+                        <p>string</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>id of the edge to listen to. If null we listen to all of the specified type</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>See also</dt>
+                <dd>OnAttributeChange</dd>
+              </dl>
+              <div class="symbol-detail-labels"><span class="label label-inner">inner</span></div>
+              <h3 id="~onEdgeDelete"><span class="symbol-name">onEdgeDelete</span><span class="signature"><span class="signature-params">(callback)</span></span>
+              </h3>
+              <p>Listen to EdgeDeleteOperations</p>
+              <section>
+                <h4>Parameter</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>callback</p>
+                      </td>
+                      <td>
+                        <p>onEntityDeleteCallback</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the callback if a edge was deleted</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+              </dl>
+              <div class="symbol-detail-labels"><span class="label label-inner">inner</span></div>
+              <h3 id="~onEdgeSelect"><span class="symbol-name">onEdgeSelect</span><span class="signature"><span class="signature-params">(callback)</span></span>
+              </h3>
+              <p>Listen to selections of edges on the Syncmeta canvas widget</p>
+              <section>
+                <h4>Parameter</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>callback</p>
+                      </td>
+                      <td>
+                        <p>onEntitySelectCallback</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the callback if a edge was selected</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+              </dl>
+              <div class="symbol-detail-labels"><span class="label label-inner">inner</span></div>
+              <h3 id="~onEntityAdd"><span class="symbol-name">onEntityAdd</span><span class="signature"><span class="signature-params">(callback)</span></span>
+              </h3>
+              <p>Listen to both EdgeAddOperation and NodeAddOperation</p>
+              <section>
+                <h4>Parameter</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>callback</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the callback if edge or node was created on syncmeta canvas widget</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>See also</dt>
+                <dd>onNodeAdd</dd>
+                <dd>onEdgeAdd</dd>
+              </dl>
+              <div class="symbol-detail-labels"><span class="label label-inner">inner</span></div>
+              <h3 id="~onEntitySelect"><span class="symbol-name">onEntitySelect</span><span class="signature"><span class="signature-params">(callback)</span></span>
+              </h3>
+              <p>Listen to selections of entities on the Syncmeta canvas widget</p>
+              <section>
+                <h4>Parameter</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>callback</p>
+                      </td>
+                      <td>
+                        <p>onEntitySelectCallback</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the callback if a entity was selected</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+              </dl>
+              <div class="symbol-detail-labels"><span class="label label-inner">inner</span></div>
+              <h3 id="~onNodeAdd"><span class="symbol-name">onNodeAdd</span><span class="signature"><span class="signature-params">(callback)</span></span>
+              </h3>
+              <p>Listen to NodeAddOperations on the SyncMeta canvas widget</p>
+              <section>
+                <h4>Parameter</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>callback</p>
+                      </td>
+                      <td>
+                        <p>onNodeAddCallback</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the callback if a node was created on syncmeta canvas widget</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+              </dl>
+              <div class="symbol-detail-labels"><span class="label label-inner">inner</span></div>
+              <h3 id="~onNodeAttributeChange"><span class="symbol-name">onNodeAttributeChange</span><span class="signature"><span class="signature-params">(callback, entityId)</span></span>
+              </h3>
+              <p>Listen to changes on Attributes on nodes Equivalent to onAttributeChange('nodes', callback, entityId);</p>
+              <section>
+                <h4>Parameters</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>callback</p>
+                      </td>
+                      <td>
+                        <p>onAttributeChangeCallback</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>calls back if a attribute is changed</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>entityId</p>
+                      </td>
+                      <td>
+                        <p>string</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>id of the node to listen to. If null we listen to all of the specified type</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>See also</dt>
+                <dd>OnAttributeChange</dd>
+              </dl>
+              <div class="symbol-detail-labels"><span class="label label-inner">inner</span></div>
+              <h3 id="~onNodeDelete"><span class="symbol-name">onNodeDelete</span><span class="signature"><span class="signature-params">(callback)</span></span>
+              </h3>
+              <p>Listen to NodeDeleteOperation</p>
+              <section>
+                <h4>Parameter</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>callback</p>
+                      </td>
+                      <td>
+                        <p>onEntityDeleteCallback</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the callback if a node was deleted</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+              </dl>
+              <div class="symbol-detail-labels"><span class="label label-inner">inner</span></div>
+              <h3 id="~onNodeMove"><span class="symbol-name">onNodeMove</span><span class="signature"><span class="signature-params">(callback, id)</span></span>
+              </h3>
+              <p>Listen to NodeMoveOperations Equivalent to onNode(['NodeMoveOperation'], callback, id);</p>
+              <section>
+                <h4>Parameters</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>callback</p>
+                      </td>
+                      <td>
+                        <p>onNodeMoveCallback</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the callback if a node is moved on the canvas</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>id</p>
+                      </td>
+                      <td>
+                        <p>string</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>id of the node to listen to. If null we listen to all</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>See also</dt>
+                <dd>onNode</dd>
+              </dl>
+              <div class="symbol-detail-labels"><span class="label label-inner">inner</span></div>
+              <h3 id="~onNodeMoveZ"><span class="symbol-name">onNodeMoveZ</span><span class="signature"><span class="signature-params">(callback, id)</span></span>
+              </h3>
+              <p>Listen to NodeMoveZOperations Equivalent to onNode(['NodeMoveZOperation'], callback, id);</p>
+              <section>
+                <h4>Parameters</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>callback</p>
+                      </td>
+                      <td>
+                        <p>onNodeMoveZCallback</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the callback if a node is moved to the back- or foreground on the canvas</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>id</p>
+                      </td>
+                      <td>
+                        <p>string</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>id of the node to listen to. If null we listen to all</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>See also</dt>
+                <dd>OnNode</dd>
+              </dl>
+              <div class="symbol-detail-labels"><span class="label label-inner">inner</span></div>
+              <h3 id="~onNodeResize"><span class="symbol-name">onNodeResize</span><span class="signature"><span class="signature-params">(callback, id)</span></span>
+              </h3>
+              <p>Listen to NodeResizeOperations Equivalent to onNode(['NodeResizeOperation'], callback, id);</p>
+              <section>
+                <h4>Parameters</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>callback</p>
+                      </td>
+                      <td>
+                        <p>onNodeResizeCallback</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the callback if a node is resized on the canvas</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>id</p>
+                      </td>
+                      <td>
+                        <p>string</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>id of the node to listen to. If null we listen to all</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>See also</dt>
+                <dd>OnNode</dd>
+              </dl>
+              <div class="symbol-detail-labels"><span class="label label-inner">inner</span></div>
+              <h3 id="~onNodeSelect"><span class="symbol-name">onNodeSelect</span><span class="signature"><span class="signature-params">(callback)</span></span>
+              </h3>
+              <p>Listen to selections of nodes on the Syncmeta canvas widget</p>
+              <section>
+                <h4>Parameter</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>callback</p>
+                      </td>
+                      <td>
+                        <p>onEntitySelectCallback</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the callback if a node was selected</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+              </dl>
+              <div class="symbol-detail-labels"><span class="label label-inner">inner</span></div>
+              <h3 id="~onUserJoin"><span class="symbol-name">onUserJoin</span><span class="signature"><span class="signature-params">()</span></span>
+              </h3>
+              <dl class="dl-compact">
+              </dl>
+              <div class="symbol-detail-labels"><span class="label label-inner">inner</span></div>
+              <h3 id="~setAttributeValue"><span class="symbol-name">setAttributeValue</span><span class="signature"><span class="signature-params">(entity, attrName, value)</span></span>
+              </h3>
+              <p>Set a value for a attribute of a entity</p>
+              <section>
+                <h4>Parameters</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>entity</p>
+                      </td>
+                      <td>
+                        <p>stirng</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>attrName</p>
+                      </td>
+                      <td>
+                        <p>string</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>value</p>
+                      </td>
+                      <td>
+                        <p>(string, bool, or integer)</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+              </dl>
+            </section>
+          </section>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+  <footer id="jsdoc-footer" class="jsdoc-footer">
+    <div id="jsdoc-footer-container">
+      <p>
+        Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> 3.5.4 on August 16, 2017.
+      </p>
+    </div>
+  </footer>
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/jquery.cookie.js"></script>
+  <script src="scripts/tree.jquery.js"></script>
+  <script src="scripts/prettify.js"></script>
+  <script src="scripts/jsdoc-toc.js"></script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/scrollanchor.js"></script>
+</body>
+
+</html>
