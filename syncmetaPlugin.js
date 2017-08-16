@@ -167,8 +167,11 @@
          * If are already connected to a syncmeta yjs space then use this funnction to init the plugin
          * Otherwise connect to yjs with the connect function
          * @param {object} yInstance - the y instance 
+         * @param {String} [userId] the id of the user. Otherwise a HTTP GET-request will be issued to get the data
+         * @param {Function} [callback]
+         * @return {undefined}
          */
-        init: function (yInstance, callback) {
+        init: function (yInstance, userId, callback) {
             ySyncMetaInstance = yInstance;
 
             var attrObserverInit = function (type, ymap, id) {
@@ -203,7 +206,7 @@
                     attrObserverInit('nodes', ymap, nodeId);
                 }
             });
-            
+
             ySyncMetaInstance.share.edges.observe(function (event) {
                 var edgeId = event.name;
                 if (event.type === 'add') {
@@ -211,12 +214,17 @@
                     attrObserverInit('edges', ymap, edgeId);
                 }
             });
-            var url = localStorage.userinfo_endpoint + '?access_token=' + localStorage.access_token;
-            httpGetAsync(url, function (data) {
-                var user = JSON.parse(data);
-                jabberId = JSON.parse(data).sub;
-                if (callback) callback(user);
-            });
+            if (userId)
+                jabberId = userId;
+            else {
+                var url = localStorage.userinfo_endpoint + '?access_token=' + localStorage.access_token;
+                httpGetAsync(url, function (data) {
+                    var user = JSON.parse(data);
+                    jabberId = JSON.parse(data).sub;
+                    if (callback) callback(user);
+                });
+            }
+
         },
         /**
          * Listen to NodeAddOperations on the SyncMeta canvas widget
@@ -332,7 +340,7 @@
                 return new Error('No Connection to Yjs space');
             ySyncMetaInstance.share.edges.observe(function (event) {
                 if (event.type === 'delete')
-                    callback({ id: event.name, source: event.oldValue.get('source'), target: event.oldValue.get('target'), type : event.oldValue.get('type') });
+                    callback({ id: event.name, source: event.oldValue.get('source'), target: event.oldValue.get('target'), type: event.oldValue.get('type') });
             });
         },
         /**
