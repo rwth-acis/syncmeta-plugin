@@ -591,6 +591,44 @@
          */
         applyLayout: function () {
             ySyncMetaInstance.share.canvas.set('applyLayout', true);
+        },
+        /**
+         * highlight entities in the SyncMeta canvas
+         * @param {Array[String]} entities the list of ids from the entities to highlight
+         * @param {String} color the color 
+         * @param {String} label the label of the hightlighted entity
+         * @param {String} userId the user id 
+         * @param {boolean} remote if true all users will see it, otherwise only the local user
+         * @return {undefined}
+         */
+        highlight : function(entities, color, label, userId, remote){
+            if(entities.length < 1 || !userId) return;
+            if(!remote) 
+                remote = false;
+            y.share.canvas.set('highlight', {
+                entities: entities,
+                color : color, 
+                label: label,
+                userId: userId,
+                remote: remote
+            });
+        },
+        /**
+         * Unhighligh entities in the SyncMeta canvas
+         * @param {Array[String]} entities the list of ids of the entities to unhighlight
+         * @param {String}
+         * @param {boolean} remote if true all users will see it, otherwise only the local user
+         * @return {undefined}
+         */
+        unhighlight : function(entities, userId, remote){
+            if(entities.length < 1) return;
+            if(!remote) 
+                remote = false;
+            y.share.canvas.set('unhighlight', {
+                entities: entities,
+                remote: remote,
+                userId : userId
+            });
         }
 
         /**
@@ -606,7 +644,7 @@
          * @param {integer} event.zIndex - depth value of the node
          * @param {object} event.json - the json representation. Only used for import of (meta-)models. Should be always null
          * @param {string} event.jabberId - jabberId of the user who created the node
-         *
+         * @return {undefined}
          */
 
         /**
