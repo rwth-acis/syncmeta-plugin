@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <meta name="generator" content="JSDoc 3.5.4">
+  <meta name="generator" content="JSDoc 3.5.5">
   <meta charset="utf-8">
   <title>Module: Syncmeta-Plugin</title>
   <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Karla:400,400i,700,700i" type="text/css">
@@ -58,6 +58,10 @@
                     <dd>
                       <p>delete a node.</p>
                     </dd>
+                    <dt><a href="module-Syncmeta-Plugin.html#~highlight">highlight(color, label, userId, remote)</a></dt>
+                    <dd>
+                      <p>highlight entities in the SyncMeta canvas.</p>
+                    </dd>
                     <dt><a href="module-Syncmeta-Plugin.html#~init">init(yInstance[, userId][, callback])</a></dt>
                     <dd>
                       <p>If are already connected to a syncmeta yjs space then use this funnction to init the plugin Otherwise connect to yjs with the connect function.</p>
@@ -98,14 +102,14 @@
                     <dd>
                       <p>Listen to changes on Attributes on nodes Equivalent to onAttributeChange('nodes', callback, entityId);.</p>
                     </dd>
-                  </dl>
-                </div>
-                <div class="summary-column">
-                  <dl class="dl-summary-callout">
                     <dt><a href="module-Syncmeta-Plugin.html#~onNodeDelete">onNodeDelete(callback)</a></dt>
                     <dd>
                       <p>Listen to NodeDeleteOperation.</p>
                     </dd>
+                  </dl>
+                </div>
+                <div class="summary-column">
+                  <dl class="dl-summary-callout">
                     <dt><a href="module-Syncmeta-Plugin.html#~onNodeMove">onNodeMove(callback, id)</a></dt>
                     <dd>
                       <p>Listen to NodeMoveOperations Equivalent to onNode(['NodeMoveOperation'], callback, id);.</p>
@@ -128,6 +132,10 @@
                     <dt><a href="module-Syncmeta-Plugin.html#~setAttributeValue">setAttributeValue(entity, attrName, value)</a></dt>
                     <dd>
                       <p>Set a value for a attribute of a entity.</p>
+                    </dd>
+                    <dt><a href="module-Syncmeta-Plugin.html#~unhighlight">unhighlight(remote)</a></dt>
+                    <dd>
+                      <p>Unhighligh entities in the SyncMeta canvas.</p>
                     </dd>
                   </dl>
                 </div>
@@ -426,6 +434,100 @@
                 </table>
               </section>
               <dl class="dl-compact">
+              </dl>
+              <div class="symbol-detail-labels"><span class="label label-inner">inner</span></div>
+              <h3 id="~highlight"><span class="symbol-name">highlight</span><span class="signature"><span class="signature-params">(color, label, userId, remote)</span>&nbsp;&rarr; <span class="signature-returns"> undefined</span></span>
+              </h3>
+              <p>highlight entities in the SyncMeta canvas</p>
+              <section>
+                <h4>Parameters</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>&#8212;</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>color</p>
+                      </td>
+                      <td>
+                        <p>String</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the color</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>label</p>
+                      </td>
+                      <td>
+                        <p>String</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the label of the hightlighted entity</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>userId</p>
+                      </td>
+                      <td>
+                        <p>String</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the user id</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>remote</p>
+                      </td>
+                      <td>
+                        <p>boolean</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>if true all users will see it, otherwise only the local user</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>undefined</code>&nbsp;</p>
+                </dd>
               </dl>
               <div class="symbol-detail-labels"><span class="label label-inner">inner</span></div>
               <h3 id="~init"><span class="symbol-name">init</span><span class="signature"><span class="signature-params">(yInstance[, userId][, callback])</span>&nbsp;&rarr; <span class="signature-returns"> undefined</span></span>
@@ -1096,6 +1198,71 @@
               </section>
               <dl class="dl-compact">
               </dl>
+              <div class="symbol-detail-labels"><span class="label label-inner">inner</span></div>
+              <h3 id="~unhighlight"><span class="symbol-name">unhighlight</span><span class="signature"><span class="signature-params">(remote)</span>&nbsp;&rarr; <span class="signature-returns"> undefined</span></span>
+              </h3>
+              <p>Unhighligh entities in the SyncMeta canvas</p>
+              <section>
+                <h4>Parameters</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>&#8212;</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>&#8212;</p>
+                      </td>
+                      <td>
+                        <p>String</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>remote</p>
+                      </td>
+                      <td>
+                        <p>boolean</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>if true all users will see it, otherwise only the local user</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>undefined</code>&nbsp;</p>
+                </dd>
+              </dl>
             </section>
           </section>
         </div>
@@ -1106,7 +1273,7 @@
   <footer id="jsdoc-footer" class="jsdoc-footer">
     <div id="jsdoc-footer-container">
       <p>
-        Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> 3.5.4 on August 16, 2017.
+        Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> 3.5.5 on October 1, 2017.
       </p>
     </div>
   </footer>
