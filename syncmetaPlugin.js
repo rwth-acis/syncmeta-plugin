@@ -531,10 +531,20 @@
         },
         /**
          * delete a node
-         * @param {string} id of the node to delete
+         * @param {string} entityId of the node to delete
          */
         deleteNode: function (entityId) {
             ySyncMetaInstance.share.nodes.delete(entityId);
+        },
+        /**
+         * same as delete node, but triggers save in the canvas after
+         * @param {String} entitiyId the id of the node to delete
+         */
+        deleteNodeSave: function(entityId) {
+            ySyncMetaInstance.share.canvas.set('NodeDeleteOperation', {
+                entityId: entityId,
+                jabberId : jabberId
+            });
         },
         /**
          * create a edge
@@ -628,6 +638,24 @@
                 entities: entities,
                 remote: remote,
                 userId : userId
+            });
+        },
+        /**
+         * create a activity which is displayed in the activity widget
+         * @param {String} type the type of the activity
+         * @param {String} entityId the entity id
+         * @param {String} sender the user id of the sender
+         * @param {String} text the text of the activity
+         * @param {Object} data some additional data
+         * @return {undefined}
+         */
+        createActivity : function(type, entityId, text, data){
+            ySyncMetaInstance.share.activity.set("ActivityOperation",{
+                type: type, 
+                entityId : entityId,
+                sender: jabberId, 
+                text : text,
+                data: data
             });
         }
 
