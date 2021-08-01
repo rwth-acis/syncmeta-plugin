@@ -41,12 +41,12 @@
 
     function httpGetAsync(theUrl, callback) {
         var xmlHttp = new XMLHttpRequest();
-        xmlHttp.setRequestHeader("Authorization", "Bearer " + localStorage.access_token);
         xmlHttp.onreadystatechange = function () {
             if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
                 callback(xmlHttp.responseText);
         }
         xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+        xmlHttp.setRequestHeader("Authorization", "Bearer " + localStorage.access_token);
         xmlHttp.send(null);
     }
     /**
