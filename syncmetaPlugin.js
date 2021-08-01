@@ -41,6 +41,7 @@
 
     function httpGetAsync(theUrl, callback) {
         var xmlHttp = new XMLHttpRequest();
+        xmlHttp.setRequestHeader("Authorization", "Bearer " + localStorage.access_token);
         xmlHttp.onreadystatechange = function () {
             if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
                 callback(xmlHttp.responseText);
@@ -220,7 +221,7 @@
             if (userId)
                 jabberId = userId;
             else {
-                var url = localStorage.userinfo_endpoint + '?access_token=' + localStorage.access_token;
+                var url = localStorage.userinfo_endpoint;
                 httpGetAsync(url, function (data) {
                     var user = JSON.parse(data);
                     jabberId = JSON.parse(data).sub;
