@@ -482,6 +482,7 @@
          * @returns returns the id of the created node as string
          */
         createNode: function (type, left, top, width, height, zIndex, containment, json, id) {
+            console.log('Create node...');
             var metamodel = ySyncMetaInstance.share.data.get('metamodel');
 
             if (!id)
