@@ -557,6 +557,12 @@
          */
         resizeNode: function (entityId,offsetX,offsetY) {
             console.log('Resize node...');
+            var _ymap = ySyncMetaInstance.share.nodes.set(id, Y.Map);
+
+            _ymap.set('offsetX', offsetX);
+            _ymap.set('offsetY', offsetY);
+            _ymap.set('entityId', entityId);
+            _ymap.set('jabberId', jabberId);
 
             ySyncMetaInstance.share.canvas.set('NodeResizeOperation', {
                 entityId: entityId,
@@ -568,7 +574,7 @@
                 if (jabberId)
                     ySyncMetaInstance.share.canvas.set('triggerSave', jabberId);
             }, 500);
-            return id;
+            return entityId;
         },
         /**
          * create a edge
