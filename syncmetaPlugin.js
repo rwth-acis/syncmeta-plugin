@@ -557,6 +557,7 @@
          */
         resizeNode: function (entityId,offsetX,offsetY) {
             console.log('Resize node...');
+            console.log(jabberId);
             var _ymap = ySyncMetaInstance.share.nodes.set(entityId, Y.Map);
 
             _ymap.set('offsetX', offsetX);
@@ -564,13 +565,14 @@
             _ymap.set('entityId', entityId);
             _ymap.set('id', entityId);
             _ymap.set('jabberId', jabberId);
-
+            console.log('db2');
             ySyncMetaInstance.share.canvas.set('NodeResizeOperation', {
                 entityId: entityId,
                 offsetX: offsetX,
                 offsetY: offsetY,
                 jabberId: jabberId
             });
+            console.log('db3');
             setTimeout(function () {
                 if (jabberId)
                     ySyncMetaInstance.share.canvas.set('triggerSave', jabberId);
