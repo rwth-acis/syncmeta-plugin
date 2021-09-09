@@ -560,7 +560,9 @@
 
              var _ymap = ySyncMetaInstance.share.nodes.set(entityId, Y.Map);
 
+             console.log('type id');
              console.log(typeof entitiyId);
+             console.log('type off');
              console.log(typeof offsetX);
 
              _ymap.set('offsetX', offsetX);
