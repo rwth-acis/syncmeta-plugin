@@ -507,6 +507,7 @@
             _ymap.set('width', width);
             _ymap.set('height', height);
             _ymap.set('zIndex', zIndex);
+            _ymap.set('containment', containment);
             _ymap.set('type', type);
             _ymap.set('id', id);
             if (json) _ymap.set('json', json);
@@ -520,6 +521,7 @@
                 width: width,
                 height: height,
                 zIndex: zIndex,
+                containment: containment,
                 json: json,
                 viewId: undefined,
                 oType: undefined,
@@ -561,8 +563,8 @@
              var _ymap = ySyncMetaInstance.share.nodes.set(entityId, Y.Map);
 
              console.log('type id');
-             console.log(entitiyId);
-             console.log(typeof entitiyId);
+             console.log(entityId);
+             console.log(typeof entityId);
              console.log('type offx');
              console.log(offsetX);
              console.log(typeof offsetX);
