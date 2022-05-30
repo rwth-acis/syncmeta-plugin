@@ -45,7 +45,7 @@
             if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
                 callback(xmlHttp.responseText);
         }
-        xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+        xmlHttp.open("GET", theUrl, true); // true for asynchronous
         xmlHttp.send(null);
     }
     /**
@@ -169,7 +169,7 @@
         /**
          * If are already connected to a syncmeta yjs space then use this funnction to init the plugin
          * Otherwise connect to yjs with the connect function
-         * @param {object} yInstance - the y instance 
+         * @param {object} yInstance - the y instance
          * @param {String} [userId] the id of the user. Otherwise a HTTP GET-request will be issued to get the data
          * @param {Function} [callback]
          * @return {undefined}
@@ -469,18 +469,19 @@
             }
         },
         /**
-         * Create a node 
+         * Create a node
          * @param {String} type the type of the node
          * @param {integer} left the x-coordinate
          * @param {integer} top the y-coordinate
-         * @param {integer} width the width of the node 
+         * @param {integer} width the width of the node
          * @param {integer} height the height of the node
          * @param {integer} zIndex the z-index of the node
+         * @param {boolean} containment containment
          * @param {Object} json some json date
          * @param {string} id the id of the node
          * @returns returns the id of the created node as string
          */
-        createNode: function (type, left, top, width, height, zIndex, json, id) {
+        createNode: function (type, left, top, width, height, zIndex, containment, json, id) {
             var metamodel = ySyncMetaInstance.share.data.get('metamodel');
 
             if (!id)
@@ -505,6 +506,7 @@
             _ymap.set('width', width);
             _ymap.set('height', height);
             _ymap.set('zIndex', zIndex);
+            _ymap.set('containment', containment);
             _ymap.set('type', type);
             _ymap.set('id', id);
             if (json) _ymap.set('json', json);
@@ -518,6 +520,7 @@
                 width: width,
                 height: height,
                 zIndex: zIndex,
+                containment: containment,
                 json: json,
                 viewId: undefined,
                 oType: undefined,
@@ -547,6 +550,36 @@
             });
         },
         /**
+         * resize a node
+         * @param {String} entitiyId resized
+         * @param {number} offsetX Offset in x-direction
+         * @param {number} offsetY Offset in y-direction
+         * @returns returns the id of the created node as string
+         */
+         resizeNode: function (entityId,offsetX,offsetY) {
+
+             var _ymap = ySyncMetaInstance.share.nodes.set(entityId, Y.Map);
+
+             _ymap.set('offsetX', offsetX);
+             _ymap.set('offsetY', offsetY);
+             _ymap.set('entityId', entityId);
+             _ymap.set('id', entityId);
+             _ymap.set('jabberId', jabberId);
+
+             ySyncMetaInstance.share.canvas.set('NodeResizeOperation', {
+                 entityId: entityId,
+                 offsetX: offsetX,
+                 offsetY: offsetY,
+                 jabberId: jabberId
+             });
+
+             setTimeout(function () {
+                 if (jabberId)
+                     ySyncMetaInstance.share.canvas.set('triggerSave', jabberId);
+             }, 500);
+             return entityId;
+         },
+        /**
          * create a edge
          * @param {string} type type of the edge
          * @param {source} source the id of the source node
@@ -569,7 +602,7 @@
                 _ymap.set('source', source);
                 _ymap.set('target', target);
                 _ymap.set('jabberId', jabberId);
-                //if source and target nodes are created previously just wait here for a 
+                //if source and target nodes are created previously just wait here for a
 
                 ySyncMetaInstance.share.canvas.set('EdgeAddOperation', {
                     id: id,
@@ -597,7 +630,7 @@
             ySyncMetaInstance.share.edges.delete(entityId);
         },
         /**
-         * Applies the drage layout 
+         * Applies the drage layout
          */
         applyLayout: function () {
             ySyncMetaInstance.share.canvas.set('applyLayout', true);
@@ -605,19 +638,19 @@
         /**
          * highlight entities in the SyncMeta canvas
          * @param {Array[String]} entities the list of ids from the entities to highlight
-         * @param {String} color the color 
+         * @param {String} color the color
          * @param {String} label the label of the hightlighted entity
-         * @param {String} userId the user id 
+         * @param {String} userId the user id
          * @param {boolean} remote if true all users will see it, otherwise only the local user
          * @return {undefined}
          */
         highlight : function(entities, color, label, userId, remote){
             if(entities.length < 1 || !userId) return;
-            if(!remote) 
+            if(!remote)
                 remote = false;
             y.share.canvas.set('highlight', {
                 entities: entities,
-                color : color, 
+                color : color,
                 label: label,
                 userId: userId,
                 remote: remote
@@ -632,7 +665,7 @@
          */
         unhighlight : function(entities, userId, remote){
             if(entities.length < 1) return;
-            if(!remote) 
+            if(!remote)
                 remote = false;
             y.share.canvas.set('unhighlight', {
                 entities: entities,
@@ -651,9 +684,9 @@
          */
         createActivity : function(type, entityId, text, data){
             ySyncMetaInstance.share.activity.set("ActivityOperation",{
-                type: type, 
+                type: type,
                 entityId : entityId,
-                sender: jabberId, 
+                sender: jabberId,
                 text : text,
                 data: data
             });
