@@ -482,7 +482,6 @@
          * @returns returns the id of the created node as string
          */
         createNode: function (type, left, top, width, height, zIndex, containment, json, id) {
-            console.log('Create node...');
             var metamodel = ySyncMetaInstance.share.data.get('metamodel');
 
             if (!id)
@@ -558,33 +557,22 @@
          * @returns returns the id of the created node as string
          */
          resizeNode: function (entityId,offsetX,offsetY) {
-             console.log('Resize node...');
 
              var _ymap = ySyncMetaInstance.share.nodes.set(entityId, Y.Map);
-
-             console.log('type id');
-             console.log(entityId);
-             console.log(typeof entityId);
-             console.log('type offx');
-             console.log(offsetX);
-             console.log(typeof offsetX);
-             console.log('type offy');
-             console.log(offsetY);
-             console.log(typeof offsetY);
 
              _ymap.set('offsetX', offsetX);
              _ymap.set('offsetY', offsetY);
              _ymap.set('entityId', entityId);
              _ymap.set('id', entityId);
              _ymap.set('jabberId', jabberId);
-             console.log('db2');
+
              ySyncMetaInstance.share.canvas.set('NodeResizeOperation', {
                  entityId: entityId,
                  offsetX: offsetX,
                  offsetY: offsetY,
                  jabberId: jabberId
              });
-             console.log('db3');
+
              setTimeout(function () {
                  if (jabberId)
                      ySyncMetaInstance.share.canvas.set('triggerSave', jabberId);
